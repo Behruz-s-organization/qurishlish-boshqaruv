@@ -15,6 +15,7 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 # APPS
 SHARED_APPS = [
     'django_tenants',
+    'jazzmin',
     'core.apps.customers',
     'django.contrib.contenttypes',
 ]
@@ -31,7 +32,12 @@ TENANT_APPS = [
     'core.apps.shared',
 ]
 
-PACKAGES = []
+PACKAGES = [
+    'corsheaders',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'drf_yasg',
+]
 
 
 INSTALLED_APPS = SHARED_APPS + DJANGO_APPS + PACKAGES + TENANT_APPS
@@ -41,6 +47,7 @@ MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -117,3 +124,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TENANT_MODEL = "customers.Client" 
 
 TENANT_DOMAIN_MODEL = "customers.Domain"
+
+
+import config.conf 
