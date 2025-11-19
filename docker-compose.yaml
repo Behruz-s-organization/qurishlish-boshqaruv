@@ -27,7 +27,6 @@ services:
       - './:/code'
     depends_on:
       - db
-      # - redis
     restart: always
     
   db:
@@ -41,29 +40,6 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     restart: always
-
-  # redis:
-  #   networks:
-  #     - qurish_boshqaruv
-  #   image: redis
-  #   restart: always
-
-  # celery:
-  #   build:
-  #     context: .
-  #     dockerfile: ./docker/Dockerfile.web
-  #   command: celery -A config worker --loglevel=info
-  #   volumes:
-  #     - "./:/code"
-  #   depends_on:
-  #     - redis
-  #     - web
-  #   networks:
-  #     - uyqur
-  #   environment:
-  #     - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379/0}
-  #     - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND:-redis://redis:6379/0}
-  #   restart: always
 
 volumes:
   pg_data: null
