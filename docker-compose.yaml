@@ -1,9 +1,9 @@
 services:  
   nginx:
     networks:
-      - uyqur
+      - qurish_boshqaruv
     ports:
-      - ${PORT:-8001}:80
+      - ${PORT:-8000}:80
     volumes:
       - ./resources/layout/nginx.conf:/etc/nginx/nginx.conf
       - ./resources/:/usr/share/nginx/html/resources/
@@ -16,7 +16,7 @@ services:
   
   web:
     networks:
-      - uyqur
+      - qurish_boshqaruv
     build:
       context: .
       dockerfile: ./docker/Dockerfile.web
@@ -27,13 +27,12 @@ services:
       - './:/code'
     depends_on:
       - db
-      - redis
     restart: always
     
   db:
     image: postgres:17
     networks:
-      - uyqur
+      - qurish_boshqaruv
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -42,33 +41,10 @@ services:
       - pg_data:/var/lib/postgresql/data
     restart: always
 
-  redis:
-    networks:
-      - uyqur
-    image: redis
-    restart: always
-
-  # celery:
-  #   build:
-  #     context: .
-  #     dockerfile: ./docker/Dockerfile.web
-  #   command: celery -A config worker --loglevel=info
-  #   volumes:
-  #     - "./:/code"
-  #   depends_on:
-  #     - redis
-  #     - web
-  #   networks:
-  #     - uyqur
-  #   environment:
-  #     - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379/0}
-  #     - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND:-redis://redis:6379/0}
-  #   restart: always
-
 volumes:
   pg_data: null
 
 
 networks:
-  uyqur: 
+  qurish_boshqaruv: 
     driver: bridge
