@@ -13,27 +13,32 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # APPS
+SHARED_APPS = [
+    'django_tenants',
+    'core.apps.customers',
+    'django.contrib.contenttypes',
+]
+
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
 
-LOCAL_APPS = [
-
+TENANT_APPS = [
+    'core.apps.shared',
 ]
 
-PACKAGES = [
+PACKAGES = []
 
-]
 
-INSTALLED_APPS = DJANGO_APPS + PACKAGES + LOCAL_APPS
+INSTALLED_APPS = SHARED_APPS + DJANGO_APPS + PACKAGES + TENANT_APPS
 
 # Middlewares
 MIDDLEWARE = [
+    'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -65,7 +70,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django_tenants.postgresql_backend',
         'NAME': env.str('POSTGRES_DB'),
         'USER': env.str('POSTGRES_USER'),
         'PASSWORD': env.str('POSTGRES_PASSWORD'),
@@ -73,6 +78,10 @@ DATABASES = {
         'PORT': env.str('POSTGRES_PORT'),
     }
 }
+
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -103,3 +112,8 @@ MEDIA_ROOT = BASE_DIR / 'resources/media'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Django tenants
+TENANT_MODEL = "customers.Client" 
+
+TENANT_DOMAIN_MODEL = "customers.Domain"
