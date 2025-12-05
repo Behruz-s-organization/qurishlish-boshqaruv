@@ -19,8 +19,8 @@ schema_view = get_schema_view(
       contact=openapi.Contact(email="xoliqberdiyevbehruz12@gmail.com"),
       license=openapi.License(name="Behruz's-Organization License"),
    ),
-   public=False,
-   permission_classes=(permissions.IsAdminUser,),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns = [
