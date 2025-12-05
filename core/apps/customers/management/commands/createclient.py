@@ -18,5 +18,5 @@ class Command(BaseCommand):
             is_primary=True
         )
 
-        self.stdout("Mijoz qo'shildi")
+        self.stdout.write("Mijoz qo'shildi")
         
