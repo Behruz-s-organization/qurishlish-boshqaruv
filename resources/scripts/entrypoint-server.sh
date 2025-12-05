@@ -1,4 +1,6 @@
 #!/bin/bash
+mkdir -p resources/logs
+
 python3 manage.py collectstatic --noinput
 python3 manage.py migrate --noinput
 
