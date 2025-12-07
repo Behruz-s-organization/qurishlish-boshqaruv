@@ -10,26 +10,29 @@ env.read_env(BASE_DIR / '.env')
 SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG')
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+ALLOWED_HOSTS = ["*"]
 
 
 # APPS
 SHARED_APPS = [
     'django_tenants',   
-    'jazzmin',
     'core.apps.customers',
+    # django apps
     'django.contrib.contenttypes',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # accounts  
-    'core.apps.accounts',
+    # local apps
+    'core.apps.shared_accounts',
 ]
 
 
 TENANT_APPS = [
+    'core.apps.accounts',
     'core.apps.shared',
+    'core.apps.products',
 ]
 
 PACKAGES = [
@@ -40,7 +43,7 @@ PACKAGES = [
 ]
 
 
-INSTALLED_APPS = SHARED_APPS + PACKAGES + TENANT_APPS
+INSTALLED_APPS = SHARED_APPS + TENANT_APPS + PACKAGES
 
 # Middlewares
 MIDDLEWARE = [
@@ -120,7 +123,7 @@ MEDIA_ROOT = BASE_DIR / 'resources/media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = 'shared_accounts.AdminUser'
 
 # Django tenants
 TENANT_MODEL = "customers.Client" 

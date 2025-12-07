@@ -14,14 +14,3 @@ docker exec -it <container_name> bash
 
 python manage.py createclient
 ```
-
-## SuperUser yaratish uchun
-``` bash
-python manage.py createuser
-```
-- Schema name: -> client qoshishda kiritgan schema name.
-- Username: -> login qilish uchun username.
-- First name: -> Ism (shart emas).
-- Last name: -> Familiya (shart emas).
-- Phone number: -> Telefon raqam (shart emas).
-- Password: -> login qilish uchun parol.

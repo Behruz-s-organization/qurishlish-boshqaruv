@@ -21,9 +21,8 @@ class User(AbstractUser, BaseModel):
     phone_number = models.CharField(
         max_length=15, null=True, blank=True, validators=[uz_phone_validator]
     )
-    client = models.ForeignKey(
-        Client, on_delete=models.CASCADE, related_name='users', null=True,
-    )
+    groups = None
+    user_permissions = None
 
     def __str__(self):
         return f"#{self.id}: {self.first_name} {self.last_name}"

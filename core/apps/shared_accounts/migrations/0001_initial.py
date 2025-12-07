@@ -2,7 +2,6 @@
 
 import django.contrib.auth.models
 import django.contrib.auth.validators
-import django.core.validators
 import django.utils.timezone
 from django.db import migrations, models
 
@@ -12,11 +11,12 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('auth', '0012_alter_user_first_name_max_length'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='User',
+            name='AdminUser',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('password', models.CharField(max_length=128, verbose_name='password')),
@@ -31,13 +31,12 @@ class Migration(migrations.Migration):
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('profile_image', models.ImageField(blank=True, null=True, upload_to='user/profile_images/')),
-                ('phone_number', models.CharField(blank=True, max_length=15, null=True, validators=[django.core.validators.RegexValidator(message='The phone_number is invalid. The format should be like this: +998XXXXXXXXX', regex='^\\+998\\d{9}$')])),
+                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),
+                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.permission', verbose_name='user permissions')),
             ],
             options={
-                'verbose_name': 'user',
-                'verbose_name_plural': 'users',
-                'abstract': False,
+                'verbose_name': 'Admin User',
+                'verbose_name_plural': 'Admin Users',
             },
             managers=[
                 ('objects', django.contrib.auth.models.UserManager()),
