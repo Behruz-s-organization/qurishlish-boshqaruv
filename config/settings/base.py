@@ -18,6 +18,11 @@ SHARED_APPS = [
     'django_tenants',   
     'core.apps.customers',
     # django apps
+]
+
+
+TENANT_APPS = [
+    # django apps
     'django.contrib.contenttypes',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -25,11 +30,6 @@ SHARED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # local apps
-    'core.apps.shared_accounts',
-]
-
-
-TENANT_APPS = [
     'core.apps.accounts',
     'core.apps.shared',
     'core.apps.products',
@@ -123,7 +123,7 @@ MEDIA_ROOT = BASE_DIR / 'resources/media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'shared_accounts.AdminUser'
+AUTH_USER_MODEL = 'accounts.User'
 
 # Django tenants
 TENANT_MODEL = "customers.Client" 
