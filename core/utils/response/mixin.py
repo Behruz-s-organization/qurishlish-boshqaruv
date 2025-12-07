@@ -31,7 +31,7 @@ class ResponseMixin:
         return Response(response_data, status=response_data["status_code"])
     
     @classmethod
-    def failure_response(cls, data=None, message=None):
+    def failure_response(cls, data=None):
         """
         Docstring for failure_response
         
@@ -43,8 +43,7 @@ class ResponseMixin:
             "status_code": status.HTTP_400_BAD_REQUEST, 
             "status": cls.FAILURE
         }
-        if message is not None:
-            response_data["message"] = message
+        response_data["message"] = "Kiritayotgan malumotingizni tekshirib ko'ring"
         if data is not None:
             response_data["data"] = data
         return 
@@ -105,7 +104,7 @@ class ResponseMixin:
         return Response(response_data, status=response_data['status_code'])
     
     @classmethod
-    def error_response(cls, data=None, message=None):
+    def error_response(cls, data=None):
         """
         Docstring for error_response
         
@@ -117,8 +116,9 @@ class ResponseMixin:
             "status_code": status.HTTP_500_INTERNAL_SERVER_ERROR, 
             "status": cls.ERROR
         }
-        if message is not None:
-            response_data["message"] = message
+        response_data["message"] = "Xatolik, Iltimos backend dasturchiga murojaat qiling"
+
         if data is not None:
             response_data["data"] = data
+
         return Response(response_data, status=response_data["status_code"])

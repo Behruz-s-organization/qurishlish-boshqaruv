@@ -11,7 +11,7 @@ from core.apps.accounts.models.user import User
 class UserAdmin(DjangoUserAdmin):
     fieldsets = (
         (None, {"fields": ("username", "password")}),
-        (("Personal info"), {"fields": ("first_name", "last_name", "email", "client", "phone_number", "profile_image")}),
+        (("Personal info"), {"fields": ("first_name", "last_name", "email", "phone_number", "profile_image")}),
         (
             ("Permissions"),
             {
@@ -29,11 +29,12 @@ class UserAdmin(DjangoUserAdmin):
             None,
             {
                 "classes": ("wide",),
-                "fields": ("username", "password1", "password2", "client"),
+                "fields": ("username", "first_name", "last_name", "phone_number", "password1", "password2"),
             },
         ),
     )
     list_display = ("username", "phone_number", "first_name", "last_name", "is_staff")
-    list_filter = ("is_staff", "is_superuser", "is_active", "groups")
+    list_filter = ("is_staff", "is_superuser", "is_active")
     search_fields = ("username", "first_name", "last_name", "email")
     ordering = ("username",)
+    filter_horizontal = ()
