@@ -15,4 +15,9 @@ docker exec -it <container_name> bash
 python manage.py createclient
 ```
 
+## Tenant Superuser qo'shish
+```bash
+docker exec -it <container_name> bash
 
+python manage.py createuser
+```
