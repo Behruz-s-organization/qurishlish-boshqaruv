@@ -131,4 +131,4 @@ TENANT_MODEL = "customers.Client"
 TENANT_DOMAIN_MODEL = "customers.Domain"
 
 
-import config.conf 
+from config.conf import * 

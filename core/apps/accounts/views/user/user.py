@@ -1,5 +1,5 @@
 # rest framework
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 
 # drf yasg
@@ -13,12 +13,11 @@ from core.apps.accounts.serializers.user import user as serializers
 
 # utils
 from core.utils.response.mixin import ResponseMixin
-from core.utils.permissions.tenant_user import IsTenantUser
 
 
 class UserViewSet(viewsets.GenericViewSet, ResponseMixin):
     queryset = User.objects.all()
-    permission_classes = [IsTenantUser]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_serializer_class(self):
         match self.action:
@@ -28,7 +27,34 @@ class UserViewSet(viewsets.GenericViewSet, ResponseMixin):
                 return
             case _:
                 return serializers.UserSerializer
-
+    
+    @swagger_auto_schema(
+        tags=['User'],
+        operation_description="User malumotlarini olish uchun api",
+        responses={
+            200: openapi.Response(
+                description="Success",
+                schema=None,
+                examples={
+                    "application/json": {
+                        "status_code": 200,
+                        "status": "success",
+                        "message": "User ma'lumotlari",
+                        "data": {
+                            "id": 0,
+                            "first_name": "string",
+                            "last_name": "string",
+                            "username": "string",
+                            "phone_number": "+998951234567",
+                            "profile_image": None or "string",
+                            "created_at": "string",
+                            "updated_at": "string"
+                        }
+                    }
+                }
+            )
+        }        
+    )
     @action(
         methods=["GET"], url_name="me", url_path="me", detail=False
     )
