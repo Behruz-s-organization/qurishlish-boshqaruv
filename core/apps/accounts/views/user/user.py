@@ -29,7 +29,7 @@ class UserViewSet(viewsets.GenericViewSet, ResponseMixin):
                 return serializers.UserSerializer
     
     @swagger_auto_schema(
-        tags=['User'],
+        tags=['user'],
         operation_description="User malumotlarini olish uchun api",
         responses={
             200: openapi.Response(

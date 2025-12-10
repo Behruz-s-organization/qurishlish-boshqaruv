@@ -20,7 +20,7 @@ class LoginApiView(generics.GenericAPIView, ResponseMixin):
     queryset = User.objects.all()
     
     @swagger_auto_schema(
-        tags=["Authentication and Authorization"],
+        tags=["auth"],
         responses={
             200: openapi.Response(
                 description="Success",
