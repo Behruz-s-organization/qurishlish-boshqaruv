@@ -9,9 +9,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 # shared
 from core.apps.shared.models import BaseModel
 
-# customers
-from core.apps.customers.models import Client
-
 # utils
 from core.utils.validators.phone_number import uz_phone_validator
 
@@ -21,6 +18,7 @@ class User(AbstractUser, BaseModel):
     phone_number = models.CharField(
         max_length=15, null=True, blank=True, validators=[uz_phone_validator]
     )
+    role = models.ForeignKey('accounts.Role', on_delete=models.CASCADE, related_name='users', null=True)
 
     def __str__(self):
         return f"#{self.id}: {self.first_name} {self.last_name}"
