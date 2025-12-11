@@ -9,6 +9,7 @@ from rest_framework.routers import DefaultRouter
 # ------- user ------
 from core.apps.accounts.views.user import UserViewSet
 from core.apps.accounts.views.user.create import CreateUserApiView
+from core.apps.accounts.views.user.list import ListUserApiView
 # ------- auth ------
 from core.apps.accounts.views.auth.login import LoginApiView
 
@@ -17,6 +18,7 @@ urlpatterns = [
     path('user/', include(
         [
             path('create/', CreateUserApiView.as_view(), name='user-create-api'),
+            path('list/', ListUserApiView.as_view(), name='user-list-api'),
         ]
     )),
     # ------ authentication ------

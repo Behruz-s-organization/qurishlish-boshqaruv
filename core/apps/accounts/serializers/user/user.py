@@ -20,3 +20,19 @@ class UserSerializer(serializers.ModelSerializer):
             'updated_at',
         ]
     
+
+class ListUserSerializer(UserSerializer):
+    role = serializers.SerializerMethodField(method_name='get_role')
+
+    class Meta:
+        model = User
+        fields = UserSerializer.Meta.fields + [
+            'is_active',
+            'role'
+        ]
+
+    def get_role(self, obj):
+        return {
+            'id': obj.role.id,
+            'name': obj.role.name,
+        } if obj.role else {}
