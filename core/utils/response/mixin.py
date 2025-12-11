@@ -46,7 +46,7 @@ class ResponseMixin:
         response_data["message"] = "Kiritayotgan malumotingizni tekshirib ko'ring"
         if data is not None:
             response_data["data"] = data
-        return 
+        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
     
     @classmethod
     def not_found_response(cls, data=None, message=None):
