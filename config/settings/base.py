@@ -130,5 +130,9 @@ TENANT_MODEL = "customers.Client"
 
 TENANT_DOMAIN_MODEL = "customers.Domain"
 
+SECURE_PROXY_SSL_HEADER = (
+    "HTTP_X_FORWARDED_PROTO",
+    env.str("SWAGGER_PROTOCOL", "https"),
+)
 
 from config.conf import * 
