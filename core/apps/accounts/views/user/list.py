@@ -22,20 +22,6 @@ class ListUserApiView(generics.GenericAPIView, ResponseMixin):
     @swagger_auto_schema(
         tags=['user'],
         operation_summary="Api for get list of employees",
-        operation_description="""
-        Retrieve a paginated list of employees.
-        
-        Authentication:
-            - This endpoint requires a valid Bearer access token in the Authorization header.
-
-        Query Parameters:
-            - limit (integer, optional): Maximum number of results per page. Default: 10.
-            - offset (integer, optional): Position of the page to start retrieving results from. Default: 0.
-
-        Response:
-            - Returns a list of employees, including basic employee information and pagination details (count, next, previous).
-            - Data is returned in JSON format.
-        """,
         responses={
             200: openapi.Response(
                 description="Success",

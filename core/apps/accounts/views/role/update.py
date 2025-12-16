@@ -22,11 +22,62 @@ class UpdateRoleApiView(generics.GenericAPIView, ResponseMixin):
 
     @swagger_auto_schema(
         tags=['role'],
-        operation_summary="",
-        operation_description="""
-        
-        """,
-        responses={}
+        operation_summary="Update Role via id",
+        responses={
+            200: openapi.Response(
+                schema=None,
+                description="Success",
+                examples={
+                    "application/json": {
+                        "status_code": 200,
+                        "status": "success",
+                        "message": "Role successfully updated",
+                        "data": {
+                            "id": 0,
+                            "name": "string",
+                            "comment": "string",
+                            "created_at": "string",
+                            "updated_at": "string",
+                        }
+                    }
+                }
+            ),
+            400: openapi.Response(
+                schema=None,
+                description="Failure",
+                examples={
+                    "application/json": {
+                        "status_code": 400,
+                        "status": "failure",
+                        "message": "Kiritayotgan malumotingizni tekshirib ko'ring",
+                        "data": "string"
+                    }
+                }
+            ),
+            404: openapi.Response(
+                schema=None,
+                description="Not Found",
+                examples={
+                    "application/json": {
+                        "status_code": 404,
+                        "status": "not_found",
+                        "message": "Role not found with this id",
+                    }
+                }
+            ),
+            500: openapi.Response(
+                schema=None,
+                description="Error",
+                examples={
+                    "application/json": {
+                        "status_code": 500,
+                        "status": "error",
+                        "message": "Xatolik, Iltimos backend dasturchiga murojaat qiling",
+                        "data": "string"
+                    }
+                }
+            )
+        }
     )
     def patch(self, request, id):
         try:

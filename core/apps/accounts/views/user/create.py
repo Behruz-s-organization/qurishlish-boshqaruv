@@ -24,22 +24,6 @@ class CreateUserApiView(generics.GenericAPIView, ResponseMixin):
     @swagger_auto_schema(
         tags=['user'],
         operation_summary="Api for create employees",
-        operation_description="""
-        Create a new user account.
-
-        Request Body:
-        - Requires user details based on the serializer fields.
-        - All required fields must be provided in MULTIPART/DATA format.
-
-        Behavior:
-        - Validates the incoming data using the serializer.
-        - If validation succeeds, a new user is created and returned.
-        - If validation fails, an appropriate error message is returned.
-
-        Response:
-        - On success: Returns the newly created user object with a success message.
-        - On error: Returns validation or processing error details.
-        """,
         responses={
             201: openapi.Response(
                 description="Created",

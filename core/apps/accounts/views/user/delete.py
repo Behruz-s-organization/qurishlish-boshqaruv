@@ -19,26 +19,6 @@ class SoftDeleteUserApiView(views.APIView, ResponseMixin):
     @swagger_auto_schema(
         tags=['user'],
         operation_summary="Soft delete a user by ID",
-        operation_description="""
-        Mark a user as deleted without permanently removing them from the database.
-
-        Authentication:
-            - Requires a valid Bearer access token.
-
-        Process:
-            - The system retrieves the user by the provided ID.
-            - If the user exists, the `is_deleted` flag is set to True.
-            - The user record remains in the database but is considered inactive/deleted.
-
-        Response:
-            - 200 OK: User successfully soft deleted.
-            - 404 Not Found: No user found with the given ID.
-            - 500 Internal Server Error: Unexpected error occurred during deletion.
-
-        Notes:
-            - This endpoint only marks the user as deleted and does not remove related data.
-            - Only authenticated users with proper permissions can perform this action.
-        """,
     )
     def delete(self, request, id):
         try: 
