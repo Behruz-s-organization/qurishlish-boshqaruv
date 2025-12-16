@@ -18,6 +18,8 @@ from core.apps.accounts.views.auth.login import LoginApiView
 from core.apps.accounts.views.role.create import CreateRoleApiView
 from core.apps.accounts.views.role.list import ListRoleApiView
 from core.apps.accounts.views.role.update import UpdateRoleApiView
+from core.apps.accounts.views.role.delete import HardDeleteRoleApiView, SoftDeleteRoleApiView
+
 
 urlpatterns = [
     # ------ user ------
@@ -42,6 +44,8 @@ urlpatterns = [
             path('create/', CreateRoleApiView.as_view(), name='create-role-api'),
             path('list/', ListRoleApiView.as_view(), name='list-role-api'),
             path('<int:id>/update/', UpdateRoleApiView.as_view(), name='update-role-api'), 
+            path('<int:id>/soft_delete/', SoftDeleteRoleApiView.as_view(), name='soft-delete-role-api'),
+            path('<int:id>/hard_delete/', HardDeleteRoleApiView.as_view(), name='hard-delete-role-api'),
         ]
     )),
 ]
