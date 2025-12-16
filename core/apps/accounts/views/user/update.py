@@ -24,33 +24,6 @@ class UpdateUserApiView(generics.GenericAPIView, ResponseMixin):
     @swagger_auto_schema(
         tags=['user'],
         operation_summary="Api for update user with id",
-        operation_description="""
-        Update the information of an existing user using their ID.
-
-        Authentication:
-            - Requires a valid Bearer access token.
-
-        Process:
-            - The system retrieves the user by the provided ID.
-            - If the user exists, the incoming data is validated using the UpdateUserSerializer.
-            - Valid fields are updated and saved.
-            - Returns the updated user data on success.
-
-        Request:
-            - Accepts partial user data (PATCH).
-            - Request format is multipart/form-data
-            - Fields can include first_name, last_name, username, phone_number, profile_image, and others defined in the serializer.
-
-        Response:
-            - 200 OK: Successfully updates and returns the updated user information.
-            - 400 Bad Request: Returned when input validation fails.
-            - 404 Not Found: Returned when there is no user associated with the given ID.
-            - 500 Internal Server Error: Returned when an unexpected error occurs.
-
-        Notes:
-            - Only authenticated users can access this endpoint.
-            - Supports partial updates, meaning not all fields are required.
-        """,
         responses={
             200: openapi.Response(
                 schema=None,

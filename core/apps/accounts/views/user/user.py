@@ -31,26 +31,6 @@ class UserViewSet(viewsets.GenericViewSet, ResponseMixin):
     @swagger_auto_schema(
         tags=['user'],
         operation_summary="Get currently authenticated user's profile",
-        operation_description="""
-        Get information about the currently authenticated user.
-
-        Authentication:
-            - This endpoint requires an active Bearer access token.
-
-        Process:
-            - The system retrieves the user associated with the provided token.
-            - The user's information is serialized using the configured serializer.
-            - Returns the authenticated user's profile data.
-
-        Response:
-            - 200 OK: Successfully returns user details.
-            - 401 Unauthorized: Authorization header is missing or token is invalid.
-            - 500 Internal Server Error: An unexpected error occurred.
-
-        Notes:
-            - This endpoint does not require any request parameters.
-            - Useful for fetching the current user's profile without needing an ID.
-        """,
         responses={
             200: openapi.Response(
                 description="Success",

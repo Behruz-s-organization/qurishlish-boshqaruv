@@ -23,30 +23,6 @@ class CreateRoleApiView(generics.GenericAPIView, ResponseMixin):
     @swagger_auto_schema(
         tags=['role'],
         operation_summary="Create a new role in the system",
-        operation_description="""
-        Create a new role with a name and optional comment.
-
-        Authentication:
-            - Requires a valid Bearer access token.
-
-        Process:
-            - Accepts role details in JSON format, validated using CreateRoleSerializer.
-            - If the data is valid, a new role is created and returned.
-
-        Request:
-            - Fields can include:
-            - name (string, required): The name of the role.
-            - comment (string, optional): Additional information about the role.
-
-        Response:
-            - 200 OK: Role successfully created and returned.
-            - 400 Bad Request: Validation failed, invalid input data.
-            - 500 Internal Server Error: Unexpected error occurred while creating the role.
-
-        Notes:
-            - Only authenticated users can create roles.
-            - The response includes the newly created role's details with timestamps.
-        """,
         responses={
             200: openapi.Response(
                 schema=None,

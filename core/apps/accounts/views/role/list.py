@@ -22,29 +22,6 @@ class ListRoleApiView(generics.GenericAPIView, ResponseMixin):
     @swagger_auto_schema(
         tags=['role'],
         operation_summary="Retrieve a paginated list of roles.",
-        operation_description="""
-        Get a list of all roles in the system, with optional pagination.
-
-        Authentication:
-            - Requires a valid Bearer access token.
-
-        Process:
-            - Retrieves all roles that are not marked as deleted.
-            - Supports pagination using the configured pagination class (limit/offset).
-            - Returns serialized role data along with pagination metadata.
-
-        Response:
-            - 200 OK: Successfully returns a paginated list of roles.
-            - Includes fields: count, next, previous, results.
-            - Each role includes id, name, comment, created_at, and updated_at.
-            - 500 Internal Server Error: Unexpected error occurred while fetching roles.
-
-        Notes:
-            - Only authenticated users can access this endpoint.
-            - Roles marked as deleted (`is_deleted=True`) are excluded from the response.
-            - Pagination fields (`next` and `previous`) provide URLs to navigate pages if results exceed page limit.
-
-        """,
         responses={
             200: openapi.Response(
                 description="Succes",
