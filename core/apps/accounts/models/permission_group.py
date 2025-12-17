@@ -11,5 +11,5 @@ class PermissionGroup(BaseModel):
     name = models.CharField(max_length=200, unique=True, db_index=True)
 
     def __str__(self):
-        return {self.name}
+        return self.name
     
