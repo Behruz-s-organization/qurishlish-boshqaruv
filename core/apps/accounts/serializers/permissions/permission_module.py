@@ -18,3 +18,13 @@ class PermissionModuleSerializer(serializers.ModelSerializer):
             'created_at',
             'actions',
         ]
+    
+
+class ListPermissionModuleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PermissionModule
+        fields = [
+            'id',
+            'name',
+            'created_at',
+        ]

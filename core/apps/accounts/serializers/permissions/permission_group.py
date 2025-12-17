@@ -18,3 +18,13 @@ class PermissionGroupSerializer(serializers.ModelSerializer):
             'created_at',
             'modules',
         ]
+
+    
+class ListPermissionGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PermissionGroup
+        fields = [
+            'id', 
+            'name', 
+            'created_at',
+        ]

@@ -19,6 +19,7 @@ from core.apps.accounts.views.role.create import CreateRoleApiView
 from core.apps.accounts.views.role.list import ListRoleApiView
 from core.apps.accounts.views.role.update import UpdateRoleApiView
 from core.apps.accounts.views.role.delete import HardDeleteRoleApiView, SoftDeleteRoleApiView
+from core.apps.accounts.views.role.detail import RoleApiView
 # ------- permission -------
 from core.apps.accounts.views.permissions.permission_group import ListPermissionGroupApiView
 
@@ -48,6 +49,7 @@ urlpatterns = [
             path('<int:id>/update/', UpdateRoleApiView.as_view(), name='update-role-api'), 
             path('<int:id>/soft_delete/', SoftDeleteRoleApiView.as_view(), name='soft-delete-role-api'),
             path('<int:id>/hard_delete/', HardDeleteRoleApiView.as_view(), name='hard-delete-role-api'),
+            path('<int:id>/', RoleApiView.as_view(), name='role-api'),
         ]
     )),
     # ------ permission ------
