@@ -44,26 +44,6 @@ class HardDeleteUserApiView(views.APIView, ResponseMixin):
     @swagger_auto_schema(
         tags=['user'],
         operation_summary="Permanently delete a user by ID.",
-        operation_description="""
-        Permanently remove a user from the database by their ID.
-
-        Authentication:
-            - Requires a valid Bearer access token.
-
-        Process:
-            - The system retrieves the user by the provided ID.
-            - If the user exists, the user record is permanently deleted from the database.
-
-        Response:
-            - 200 OK: User successfully deleted.
-            - 404 Not Found: No user found with the given ID.
-            - 500 Internal Server Error: Unexpected error occurred during deletion.
-
-        Notes:
-            - This action permanently removes the user and cannot be undone.
-            - Only authenticated users with proper permissions can perform this action.
-            - All related data handling (foreign keys, constraints) depends on the database setup.
-        """,
     )
     def delete(self, request, id):
         try: 

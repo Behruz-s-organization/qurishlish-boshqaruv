@@ -15,7 +15,7 @@ class CreateRoleSerializer(serializers.Serializer):
 
     def validate(self, data):
         if Role.objects.filter(name=data['name']).exists():
-            raise serializers.ValidationError({"name": "Role with this name already exists"})
+            raise serializers.ValidationError({"field": "name", "message": "Ro'l bu nom bilan allaqachon mavjud"})
         return data
     
     def create(self, validated_data):

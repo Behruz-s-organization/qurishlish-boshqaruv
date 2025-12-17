@@ -48,36 +48,19 @@ class ListRoleApiView(generics.GenericAPIView, ResponseMixin):
                     }
                 }
             ),
-            500: openapi.Response(
-                description="Error",
-                schema=None,
-                examples={
-                    "application/json": {
-                        "status_code": 500,
-                        "status": "error",
-                        "message": "Xatolik, Iltimos backend dasturchiga murojaat qiling",
-                        "data": "string"
-                    }
-                }
-            ),
         }
     )
     def get(self, request):
-        try: 
-            queryset = self.queryset.filter(is_deleted=False)
-            page = self.paginate_queryset(queryset)
-            if page is not None:
-                serializer = self.serializer_class(page, many=True)
-                return self.success_response(
-                    data=self.get_paginated_response(serializer.data).data,
-                    message="Roles list"
-                )
-            serializer = self.serializer_class(queryset, many=True)
+        queryset = self.queryset.filter(is_deleted=False)
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.serializer_class(page, many=True)
             return self.success_response(
-                data=serializer.data,
+                data=self.get_paginated_response(serializer.data).data,
                 message="Roles list"
             )
-        except Exception as e:
-            return self.error_response(
-                data=str(e)
-            )
+        serializer = self.serializer_class(queryset, many=True)
+        return self.success_response(
+            data=serializer.data,
+            message="Roles list"
+        )
