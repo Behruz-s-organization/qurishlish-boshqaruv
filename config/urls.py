@@ -38,6 +38,7 @@ urlpatterns += [
    path('api/v1/', include(
       [
          path('accounts/', include('core.apps.accounts.urls')),
+         path('products/', include('core.apps.products.urls')),
       ]
    )),
 ]
