@@ -49,7 +49,7 @@ class ResponseMixin:
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
     
     @classmethod
-    def not_found_response(cls, data=None, message=None):
+    def not_found_response(cls, message=None):
         """
         Docstring for not_found_response
         
@@ -63,8 +63,6 @@ class ResponseMixin:
         }
         if message is not None:
             response_data["message"] = message
-        if data is not None:
-            response_data["data"] = data
         return Response(response_data, status=response_data['status_code'])
     
     @classmethod
