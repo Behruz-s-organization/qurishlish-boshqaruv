@@ -66,7 +66,7 @@ class CreateUserApiView(generics.GenericAPIView, ResponseMixin):
                         "status_code": 500,
                         "status": "error",
                         "message": "Xatolik, Iltimos backend dasturchiga murojaat qiling",
-                        "data": "string"
+                        "error_message": "string"
                     }
                 }
             ),

@@ -20,10 +20,10 @@ class CreateUserSerializer(serializers.Serializer):
 
     def validate(self, data):
         if User.objects.filter(username=data['username'], is_deleted=False).exists():
-            raise serializers.ValidationError({"username": "User with this username already exists"})
+            raise serializers.ValidationError({"field": "username","message": "Foydalanuvchi bu username bilan allaqachon mavjud"})
         role = Role.objects.filter(id=data['role_id'], is_deleted=False).first()
         if not role:
-            raise serializers.ValidationError({"role": "Role not found"})
+            raise serializers.ValidationError({"field": "role_id", "message": "Ro'l topilmadi"})
         data['role'] = role
         return data
 

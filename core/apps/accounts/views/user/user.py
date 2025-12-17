@@ -53,31 +53,14 @@ class UserViewSet(viewsets.GenericViewSet, ResponseMixin):
                     }
                 }
             ),
-            500: openapi.Response(
-                description="Error",
-                schema=None,
-                examples={
-                    "application/json": {
-                        "status_code": 500,
-                        "status": "error",
-                        "message": "Xatolik, Iltimos backend dasturchiga murojaat qiling",
-                        "data": "string",
-                    }
-                }
-            ),
         }        
     )
     @action(
         methods=["GET"], url_name="me", url_path="me", detail=False
     )
     def me(self, request):
-        try:
-            serializer = self.get_serializer(request.user)
-            return self.success_response(
-                data=serializer.data,
-                message="User ma'lumotlari"
-            )
-        except Exception as e:
-            return self.error_response(
-                data=str(e),
-            )
+        serializer = self.get_serializer(request.user)
+        return self.success_response(
+            data=serializer.data,
+            message="User ma'lumotlari"
+        )

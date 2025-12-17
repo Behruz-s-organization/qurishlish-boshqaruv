@@ -119,6 +119,6 @@ class ResponseMixin:
         response_data["message"] = "Xatolik, Iltimos backend dasturchiga murojaat qiling"
 
         if data is not None:
-            response_data["data"] = data
+            response_data["error_message"] = data
 
         return Response(response_data, status=response_data["status_code"])
