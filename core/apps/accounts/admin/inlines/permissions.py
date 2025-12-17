@@ -3,7 +3,7 @@ from django.contrib import admin
 
 
 # accounts
-from core.apps.accounts.models import PermissionAction, PermissionModul
+from core.apps.accounts.models import PermissionAction, PermissionModule
 
 
 class PermissionActionInline(admin.TabularInline):
@@ -11,6 +11,6 @@ class PermissionActionInline(admin.TabularInline):
     exta = 0
 
 
-class PermissionModulInline(admin.TabularInline):
-    model = PermissionModul
+class PermissionModuleInline(admin.TabularInline):
+    model = PermissionModule
     extra = 0

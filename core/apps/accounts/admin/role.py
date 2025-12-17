@@ -9,3 +9,4 @@ from core.apps.accounts.models import Role
 class RoleAdmin(admin.ModelAdmin):
     list_display = ['id', 'name']
     search_fields = ['name']
+    filter_horizontal = ['permission_groups', 'permission_modules', 'permission_actions']
