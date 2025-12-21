@@ -1,43 +1,42 @@
 # rest framework
 from rest_framework import generics, permissions
 
-# drf yasg
+# drf yasg 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
 
 # products
 from core.apps.products.models import Folder
-from core.apps.products.serializers.folder.create import CreateFolderSerializer
+from core.apps.products.serializers.folder.update import UpdateFolderSerializer
 from core.apps.products.serializers.folder.list import ListFolderSerializer
 
 # utils
 from core.utils.response.mixin import ResponseMixin
 
 
-class CreateFolderApiView(generics.GenericAPIView, ResponseMixin):
-    serializer_class = CreateFolderSerializer
-    queryset = Folder.objects.all()
+class UpdateFolderApiView(generics.GenericAPIView, ResponseMixin):
+    serializer_class = UpdateFolderSerializer
+    queryset = Folder.objects.filter(is_deleted=False)
     permission_classes = [permissions.IsAuthenticated]
 
     @swagger_auto_schema(
         tags=['product folders'],
-        operation_summary="Create Folder Api for add products",
         responses={
-            201: openapi.Response(
+            200: openapi.Response(
                 schema=None,
-                description="Created",
+                description="Success",
                 examples={
                     "application/json": {
-                        "status_code": 201,
-                        "status": "created",
-                        "message": "Folder successfully created",
+                        "status_code": 200,
+                        "status": "success",
+                        "message": "Product folder successfully updated",
                         "data": {
                             "id": 0,
                             "name": "string",
                             "count_products": 0,
                             "created_at": "string",
-                            "updated_at": "string",
+                            "updated_at": "string", 
                         }
                     }
                 }
@@ -50,35 +49,51 @@ class CreateFolderApiView(generics.GenericAPIView, ResponseMixin):
                         "status_code": 400,
                         "status": "failure",
                         "message": "Kiritayotgan malumotingizni tekshirib ko'ring",
-                        "data": {"field": "string", "message": "stirng"}
+                        "data": "string"
+                    }
+                }
+            ),
+            404: openapi.Response(
+                schema=None,
+                description="Not found",
+                examples={
+                    "application/json": {
+                        "status_code": 404,
+                        "status": "not_found",
+                        "message": "Folder not found with this id",
                     }
                 }
             ),
             500: openapi.Response(
                 schema=None,
-                description="Failure",
+                description="Server Error",
                 examples={
                     "application/json": {
                         "status_code": 500,
                         "status": "error",
                         "message": "Xatolik, Iltimos backend dasturchiga murojaat qiling",
-                        "error_message": "string"
+                        "data": "string"
                     }
                 }
-            )
+            ),
         }
     )
-    def post(self, request):
+    def patch(self, request, id):
         try:
-            serializer = self.serializer_class(data=request.data)
+            folder = Folder.objects.filter(id=id, is_deleted=False).first()
+            if not folder:
+                return self.not_found_response(message="Folder not found with this id")
+            serializer = self.serializer_class(data=request.data, instance=folder)
             if serializer.is_valid():
                 instance = serializer.save()
-                return self.created_response(
+                return self.success_response(
                     data=ListFolderSerializer(instance).data,
-                    message="Folder successfully created"
+                    message="Product folder successfully updated",
                 )
             return self.failure_response(
                 data=serializer.errors,
             )
         except Exception as e:
-            return self.error_response(data=str(e))
+            return self.error_response(
+                data=str(e),
+            )
