@@ -1,7 +1,7 @@
 services:  
   nginx:
     networks:
-      - qurish_boshqaruv
+      - qurilish_boshqaruv
     ports:
       - ${PORT:-8000}:80
     volumes:
@@ -16,7 +16,7 @@ services:
   
   web:
     networks:
-      - qurish_boshqaruv
+      - qurilish_boshqaruv
     build:
       context: .
       dockerfile: ./docker/Dockerfile.web
@@ -32,7 +32,7 @@ services:
   db:
     image: postgres:17
     networks:
-      - qurish_boshqaruv
+      - qurilish_boshqaruv
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -41,10 +41,59 @@ services:
       - pg_data:/var/lib/postgresql/data
     restart: always
 
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    ports:
+      - "9090:9090"
+    networks:
+      - qurilish_boshqaruv
+    restart: unless-stopped
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki-config.yml:/etc/loki/local-config.yaml
+      - loki_data:/loki
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - qurilish_boshqaruv
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - qurilish_boshqaruv
+    depends_on:
+      - prometheus
+      - loki
+    restart: unless-stopped
+
 volumes:
   pg_data: null
-
+  grafana_data: null
+  loki_data: null
+  prometheus_data: null
 
 networks:
-  qurish_boshqaruv: 
+  qurilish_boshqaruv: 
     driver: bridge
