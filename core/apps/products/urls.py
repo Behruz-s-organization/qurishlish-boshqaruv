@@ -7,6 +7,7 @@ from django.urls import path, include
 from core.apps.products.views.folder.create import CreateFolderApiView
 from core.apps.products.views.folder.list import ListFolderApiView
 from core.apps.products.views.folder.update import UpdateFolderApiView
+from core.apps.products.views.folder.delete import DeleteFolderApiView
 
 
 urlpatterns = [
@@ -16,6 +17,7 @@ urlpatterns = [
             path('create/', CreateFolderApiView.as_view(), name='create-folder-api'),
             path('list/', ListFolderApiView.as_view(), name='list-folder-api'),
             path('<int:id>/update/', UpdateFolderApiView.as_view(), name='update-folder-api'),
+            path('<int:id>/delete/', DeleteFolderApiView.as_view(), name='delete-folder-api'),
         ]
     )),
 ]
