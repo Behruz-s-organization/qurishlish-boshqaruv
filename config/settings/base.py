@@ -40,7 +40,6 @@ PACKAGES = [
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_yasg',
-    'django_prometheus',
 ]
 
 
@@ -49,7 +48,6 @@ INSTALLED_APPS = SHARED_APPS + TENANT_APPS + PACKAGES
 # Middlewares
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware',
-    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -135,9 +133,7 @@ TENANT_DOMAIN_MODEL = "customers.Domain"
 
 SECURE_PROXY_SSL_HEADER = (
     "HTTP_X_FORWARDED_PROTO",
-    env.str("SWAGGER_PROTOCOL", "https"),
+    env.str("SWAGGER_PROTOCOL", default="https"),
 )
-
-PROMETHEUS_EXPORT_MIGRATIONS = False
 
 from config.conf import * 
